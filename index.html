@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mirabel Perez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unna:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root{
+      --medium-blue:#4682B4;
+      --imperial-blue:#002395;
+      --box-bg:linear-gradient(145deg, rgba(173,216,230,0.9), rgba(144,238,144,0.85));
+      --text:#1b1b1b;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:'Unna', serif;
+      margin:0;
+      padding:0;
+      background:var(--medium-blue);
+      color:var(--text);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    header{padding:28px 16px 8px}
+    header h1{font-size:3em;text-align:center;margin:0;color:#fff}
+    header h2.subheading{font-size:1.5em;text-align:center;font-weight:normal;margin:8px 0 0;color:#e8eef6}
+
+    nav{margin-top:16px}
+    nav ul{list-style:none;display:flex;justify-content:center;gap:16px;padding:0;margin:0}
+    nav a{display:inline-block;padding:8px 12px;border-radius:999px;text-decoration:none;background:rgba(255,255,255,0.2);color:#fff}
+    nav a:hover{background:rgba(255,255,255,0.32)}
+
+    section{
+      background:var(--box-bg);
+      border-radius:24px 8px 24px 8px;
+      padding:24px;
+      margin:20px 0;
+      backdrop-filter:blur(6px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.15);
+      position:relative;
+    }
+    section:nth-of-type(even){
+      border-radius:8px 24px 8px 24px;
+    }
+    section::after{
+      content:"";
+      display:block;
+      width:60%;
+      height:2px;
+      margin:30px auto 0;
+      background:rgba(255,255,255,0.3);
+      border-radius:2px;
+    }
+    section:last-of-type::after{display:none}
+
+    h2{font-size:2em;margin-top:0;border-bottom:2px solid rgba(255,255,255,0.25);padding-bottom:6px;color:#002244}
+    ul.role-list{margin:0;padding-left:20px}
+    ul.role-list li{margin-bottom:12px}
+
+    #intro{background:var(--imperial-blue);color:#fff;text-align:left;box-shadow:0 10px 28px rgba(0,0,0,0.25);border-radius:20px}
+    #intro h2{border-color:rgba(255,255,255,0.2);color:#fff}
+    #intro p{font-size:1.1em;line-height:1.6}
+
+    #basic .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+    .photo-slot{
+      border-radius:50%;
+      overflow:hidden;
+      min-height:300px;
+      max-width:300px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f0f0f0;
+      box-shadow:0 4px 12px rgba(0,0,0,0.25);
+    }
+    .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
+    .photo-slot small{color:#333;text-align:center;padding:10px}
+    @media (max-width:900px){#basic .grid{grid-template-columns:1fr}}
+
+    #contact{background:var(--box-bg);border-top:none;box-shadow:0 6px 20px rgba(0,0,0,0.15)}
+    #contact h2{text-align:center;border:none;margin-bottom:12px;color:#002244}
+    #contact ul{list-style:none;padding:0;max-width:600px;margin:0 auto}
+    #contact li{margin:10px 0;font-size:1.1em;display:flex;align-items:center;gap:10px}
+    #contact a{text-decoration:none;color:#0073e6}
+    #contact a:hover{text-decoration:underline}
+    .icon{color:#333;width:20px;text-align:center;transition:color .3s ease, transform .3s ease}
+    .fa-envelope{color:#D44638}
+    .fa-envelope:hover{color:#D44638; transform:scale(1.2)}
+    .fa-phone{color:#28a745}
+    .fa-phone:hover{color:#28a745; transform:scale(1.2)}
+    .fa-linkedin{color:#0077B5}
+    .fa-linkedin:hover{color:#0077B5; transform:scale(1.2)}
+    .fa-github{color:#000}
+    .fa-github:hover{color:#000; transform:scale(1.2)}
+    .fa-handshake{color:#f59e0b}
+    .fa-handshake:hover{color:#f59e0b; transform:scale(1.2)}
+    .fa-phone:hover{color:#28a745;transform:scale(1.2);transition:transform .4s cubic-bezier(.4,0,.2,1),color .4s cubic-bezier(.4,0,.2,1)}
+    .fa-linkedin:hover{color:#0077B5;transform:scale(1.2);transition:transform .4s cubic-bezier(.4,0,.2,1),color .4s cubic-bezier(.4,0,.2,1)}
+    .fa-github:hover{color:#000;transform:scale(1.2);transition:transform .4s cubic-bezier(.4,0,.2,1),color .4s cubic-bezier(.4,0,.2,1)}
+    .fa-handshake:hover{color:#f59e0b;transform:scale(1.2);transition:transform .4s cubic-bezier(.4,0,.2,1),color .4s cubic-bezier(.4,0,.2,1)}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(16px);}
+    .reveal.in-view{opacity:1; transform:none; transition:opacity .7s ease, transform .7s ease;}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none}
+      .reveal.in-view{transition:none}
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 700px){
+      .container{padding:16px}
+      header h1{font-size:2.2em}
+      header h2.subheading{font-size:1.2em}
+      nav ul{flex-wrap:wrap;gap:10px}
+      nav a{padding:6px 10px}
+      section{padding:16px;border-radius:18px 6px 18px 6px}
+      section:nth-of-type(even){border-radius:6px 18px 6px 18px}
+      #basic .grid{grid-template-columns:1fr}
+      .photo-slot{max-width:220px;min-height:220px}
+    }
+    @media (max-width: 420px){
+      header h1{font-size:1.9em}
+      header h2.subheading{font-size:1.05em}
+    }
+    /* Responsive tweaks for mobile and small screens */
+    @media (max-width: 900px){
+      .container{padding:16px}
+      #basic .grid{grid-template-columns:1fr}
+      .photo-slot{max-width:240px;min-height:240px}
+    }
+    @media (max-width: 700px){
+      header h1{font-size:2.2em}
+      header h2.subheading{font-size:1.2em}
+      nav ul{flex-wrap:wrap;gap:10px}
+      nav a{padding:6px 10px}
+      section{padding:16px;border-radius:18px 6px 18px 6px}
+      section:nth-of-type(even){border-radius:6px 18px 6px 18px}
+    }
+    @media (max-width: 420px){
+      header h1{font-size:1.9em}
+      header h2.subheading{font-size:1.05em}
+      h2{font-size:1.6em}
+    }
+
+    /* Portfolio styles */
+    .portfolio-cta{display:inline-block;margin-top:10px;padding:10px 14px;border-radius:999px;text-decoration:none;background:rgba(255,255,255,0.25);color:#002244}
+    .portfolio-cta:hover{background:rgba(255,255,255,0.35); transform:scale(1.05)}
+    .portfolio-cta i{margin-right:6px; transition:color 0.3s ease, transform 0.3s ease}
+    .portfolio-cta.github i{color:#000}
+    .portfolio-cta.google-drive i{color:#34A853}
+    .portfolio-cta:hover.github i{color:#000; transform:scale(1.2)}
+    .portfolio-cta:hover.google-drive i{color:#34A853; transform:scale(1.2)}
+    .portfolio-cta:hover i{color:#0073e6; transform:scale(1.2)}
+    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:14px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .portfolio-placeholder{height:120px;border-radius:14px;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center}
+    .portfolio-placeholder{height:120px;border-radius:14px;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center}
+
+    /* Back to top button */
+    #backToTop {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:linear-gradient(145deg, rgba(173,216,230,0.95), rgba(144,238,144,0.9));
+      color:#002244;
+      border:none;
+      padding:12px 16px;
+      border-radius:50%;
+      font-size:1em;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,0.25);
+      z-index:1000;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 0.5s ease, background 0.3s ease, transform 0.3s ease;
+    }
+    #backToTop.show { opacity:1; pointer-events:auto; }
+    #backToTop:hover{ background:linear-gradient(145deg, rgba(144,238,144,1), rgba(173,216,230,1)); transform:scale(1.1); }
+    /* Custom tooltip styling */
+    [title]{
+      position:relative;
+    }
+    [title]:hover::after{
+      content:attr(title);
+      position:absolute;
+      bottom:125%;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(0,0,0,0.8);
+      color:#fff;
+      padding:4px 8px;
+      border-radius:4px;
+      white-space:nowrap;
+      font-size:0.8em;
+      z-index:999;
+      opacity:0;
+      animation:fadeIn 0.3s forwards;
+    }
+    @keyframes fadeIn{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+    [title]:hover::before{
+      content:"";
+      position:absolute;
+      bottom:115%;
+      left:50%;
+      transform:translateX(-50%);
+      border-width:6px;
+      border-style:solid;
+      border-color:rgba(0,0,0,0.8) transparent transparent transparent;
+      z-index:1000;
+      opacity:0;
+      animation:fadeIn 0.3s forwards;
+    }
+    [title]:hover::before{
+      content:"";
+      position:absolute;
+      bottom:115%;
+      left:50%;
+      transform:translateX(-50%);
+      border-width:6px;
+      border-style:solid;
+      border-color:rgba(0,0,0,0.8) transparent transparent transparent;
+      z-index:1000;
+      opacity:0;
+      animation:fadeIn 0.3s forwards;
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <h1>Mirabel Perez</h1>
+    <h2 class="subheading">A page highlighting past roles and responsibilities</h2>
+  </header>
+
+  <nav class="container">
+    <ul>
+      <li><a href="#basic">Basic Information</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#employment">Employment</a></li>
+      <li><a href="#volunteer">Volunteer</a></li>
+      <li><a href="#school">School</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#portfolio">Digital Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <!-- HERO -->
+    <section id="intro" class="reveal">
+      <h2>Professional Summary</h2>
+      <p>I am a dedicated professional with over 12 years of experience in the U.S. Army (2000–2012), specializing in aviation systems, electrical troubleshooting, and team leadership. My career reflects a strong ability to integrate complex systems, communicate effectively across technical and operational teams, and mentor others toward success. My three overseas deployments—in Israel (2003) collaborating with the Israeli Army, and in Iraq (2005–2006, 2008–2009) supporting intelligence systems in combat environments—demonstrate leadership, cultural collaboration, and adaptability. Building on an Associate of Applied Science in Electrical Technology (2006), a Certificate in Fiber Optics (3M, 2005), and currently pursuing a Master’s Degree in Electrical Engineering (2023–Present, Expected 2028), I am committed to applying my military-honed skills to the fields of avionics, engineering, and technology. These deployments and responsibilities continue to shape my engineering career goals, reinforcing my commitment to leadership, adaptability, and cultural collaboration in technical fields.</p>
+    </section>
+
+    <!-- BASIC INFORMATION -->
+    <section id="basic" class="reveal">
+      <h2>Basic Information</h2>
+      <div class="grid">
+        <div class="photo-slot">
+          <div>
+            <strong>Add Photo</strong><br />
+            <small>Replace this area with your image (recommended 1:1 or 4:5 ratio).</small>
+          </div>
+        </div>
+        <div>
+          <p>My background combines years of military service, technical expertise, and a passion for engineering. This section provides an overview of who I am and the interests that continue to guide my career and personal growth.</p>
+          <ul class="role-list">
+            <li><strong>Location:</strong> Ashburn, Virginia</li>
+            <li><strong>Background:</strong> Former U.S. Army UAS Crew Chief (2000–2012) with over 12 years of service, hands-on experience in aviation systems, technical troubleshooting, and team leadership.</li>
+            <li><strong>Interests:</strong> Electrical engineering, avionics systems, gardening, creative design projects, and community service.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="reveal">
+      <h2>Skills</h2>
+      <p>Drawing from extensive military and technical experience, I have developed a strong foundation in troubleshooting, electrical systems, avionics, and leadership. My skills reflect both hands-on expertise and the ability to communicate effectively across diverse teams, making me well-prepared for roles in electrical engineering and avionics.</p>
+      <ul class="role-list">
+        <li>Strong academic foundation in Electrical Technology (A.A.S., 2006), Certificate in Fiber Optics (3M, 2005), and ongoing Electrical Engineering studies (M.S., 2023–Present, Expected 2028)</li>
+        <li>Troubleshooting and diagnostics of electrical and avionics systems</li>
+        <li>System integration and preventive maintenance</li>
+        <li>Leadership and team management</li>
+        <li>Technical communications and cross-functional collaboration</li>
+        <li>Experience with radar, avionics, and unmanned aircraft systems</li>
+        <li>Instruction, training, and mentoring in technical environments</li>
+      </ul>
+      <h3>Soft Skills</h3>
+      <ul class="role-list">
+        <li>Resilience under pressure and adaptability in diverse environments</li>
+        <li>Cultural collaboration and teamwork during international deployments</li>
+        <li>Organizational management and logistics coordination for relocations</li>
+        <li>Budgeting, planning, and multitasking in both professional and household settings</li>
+        <li>Effective communication and problem-solving across technical and personal roles</li>
+        <li>Healthcare coordination, family support, and educational planning</li>
+        <li>Household management and leadership in daily operations</li>
+        <li>Coordination of military relocations, including international vehicle shipping</li>
+        <li>Support roles including mail handling, training room management, and EOD escort gunner</li>
+        <li>Deployment leadership during international missions in Israel (2003) and Iraq (2005–2006, 2008–2009), demonstrating cultural collaboration and adaptability</li>
+      </ul>
+    </section>
+
+    <!-- EMPLOYMENT -->
+    <section id="employment" class="reveal">
+      <h2>Employment</h2>
+      <p>Over the course of my military career, I served in multiple technical and leadership roles that provided a deep foundation in electronics, communications, and aviation systems.</p>
+      <ul class="role-list">
+        <li><strong>U.S. Army</strong> (2000 – 2012)
+          <ul>
+            <li><em>Patriot Operator/Maintainer</em> – Deployed to Israel in 2003, collaborated with the Israeli Army, operated and maintained Patriot missile systems, and developed technical proficiency in radar and fire control systems.</li>
+            <li><em>Military Intelligence Systems Maintainer and Integrator</em> – Deployed twice to Iraq (2005–2006 and 2008–2009), maintained and integrated intelligence systems, served as mail handler and training room manager, trained personnel, and reduced system downtime through rapid troubleshooting.</li>
+            <li><em>Shadow UAS Crew Chief</em> – Supervised launch, recovery, and maintenance of Shadow UAS valued at over $15M, managed operators and technicians, ensured compliance with aviation safety, and supported EOD escort missions as a gunner.</li>
+          </ul>
+        </li>
+        <li><em>Additional Responsibilities</em> – Managed household operations since 2009 including budgeting, healthcare, and education; coordinated four military relocations including overseas vehicle shipping.</li>
+      </ul>
+    </section>
+
+    <!-- VOLUNTEER -->
+    <section id="volunteer" class="reveal">
+      <h2>Volunteer</h2>
+      <ul class="role-list">
+        <li><strong>Girl Scout Troop Cookie Manager</strong> (2011 – Present) – Managed inventory, sales, and financial tracking, coordinated distribution, and applied leadership and logistics skills.</li>
+        <li><strong>Girl Scout Troop Fall Product Manager</strong> (2011 – Present) – Oversaw fall fundraising campaigns, ensured accurate reporting, and strengthened teamwork and project management skills.</li>
+        <li><strong>PTO Volunteer</strong> (2011 – Present) – Supported school events, organized community programs, and enhanced collaboration between families and educators.</li>
+      </ul>
+    </section>
+
+    <!-- SCHOOL -->
+    <section id="school" class="reveal">
+      <h2>School</h2>
+      <ul class="role-list">
+        <li><strong>Associate of Applied Science in Electrical Technology</strong> – Cochise College (2006)</li>
+        <li><strong>Certificate in Fiber Optics</strong> – 3M (2005)</li>
+        <li><strong>Master’s Degree in Electrical Engineering</strong> – George Mason University (2023 – Present, Expected 2028)</li>
+      </ul>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="reveal">
+      <h2>Projects</h2>
+      <ul class="role-list">
+        <li><strong>Deployment Leadership Projects</strong> – Led missions during three overseas deployments (Israel 2003, Iraq 2005–2006 & 2008–2009), applied cultural collaboration and adaptability, and strengthened leadership and communication.</li>
+        <li><strong>Avionics Troubleshooting Simulation</strong> – Applied coursework to simulate avionics malfunctions, diagnosed and resolved issues, and enhanced practical troubleshooting skills.</li>
+        <li><strong>Community Robotics Workshop</strong> – Led a team to build and program robots for a STEM event, integrated sensors and microcontrollers, and applied leadership and mentoring skills.</li>
+        <li><strong>Home Electrical Efficiency Project</strong> – Designed and implemented energy efficiency improvements, optimized usage, and introduced sustainable practices.</li>
+      </ul>
+    </section>
+
+    <!-- DIGITAL PORTFOLIO -->
+    <section id="portfolio" class="reveal">
+      <h2>Digital Portfolio</h2>
+      <p>Explore selected projects and artifacts. Media embeds (photos/videos) will be added here soon.</p>
+      <div class="cta-row">
+        <a class="portfolio-cta github" href="https://github.com/perezmirabel-lab" target="_blank" rel="noopener noreferrer" title="GitHub Portfolio"><i class='fab fa-github'></i> GitHub Portfolio</a>
+        <a class="portfolio-cta google-drive" href="https://drive.google.com/drive/folders/1gtqRZtuNPyMvtB_ifAFi9RMryLhSSB7z?usp=sharing" target="_blank" rel="noopener noreferrer" title="Google Drive Portfolio"><i class='fab fa-google-drive'></i> Google Drive Portfolio</a>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-placeholder">Media placeholder</div>
+        <div class="portfolio-placeholder">Media placeholder</div>
+        <div class="portfolio-placeholder">Media placeholder</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="reveal">
+      <h2>Contact</h2>
+      <ul class="role-list">
+        <li><span class="icon" title="Email"><i class="fas fa-envelope"></i></span><strong>Email:</strong> <a href="mailto:perez.mirabel@gmail.com" target="_blank" rel="noopener noreferrer">perez.mirabel@gmail.com</a></li>
+        <li><span class="icon" title="Phone"><i class="fas fa-phone"></i></span><strong>Phone:</strong> 254-651-8267</li>
+        <li><span class="icon" title="LinkedIn"><i class="fab fa-linkedin"></i></span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mirabel-perez-67688b377" target="_blank" rel="noopener noreferrer">linkedin.com/in/mirabel-perez-67688b377</a></li>
+        <li><span class="icon" title="GitHub"><i class="fab fa-github"></i></span><strong>GitHub:</strong> <a href="https://github.com/perezmirabel-lab" target="_blank" rel="noopener noreferrer">github.com/perezmirabel-lab</a></li>
+        <li><span class="icon" title="Handshake"><i class="fas fa-handshake"></i></span><strong>Handshake:</strong> <a href="https://app.joinhandshake.com/profiles/zv5d66" target="_blank" rel="noopener noreferrer">Handshake Profile</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <button id="backToTop" aria-label="Back to top">↑ Top</button>
+
+  <footer>
+    <p>&copy; 2025 Mirabel Perez</p>
+  </footer>
+
+  <script>
+    // Fade-in sections on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section.reveal').forEach(el => observer.observe(el));
+
+    // Back to Top logic with smooth fade in/out
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 300);
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>
